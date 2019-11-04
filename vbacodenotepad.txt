@@ -1,0 +1,85 @@
+Sub Stock_Tickers():
+
+'for worksheet
+    'CREATE ALL OF YOUR DIM
+    Dim Ticker As String
+    Dim high As Currency
+    Dim low As Currency
+    
+    Dim TotalRows As Long
+    Dim first_open As Double
+    
+    
+    'ASSIGN INITIAL DIM VALUES (example total_vol = 0, counter = 2)
+    TotalVolume = 0
+    counter = 2
+    FirstOpen = Cells(2, 3).Value
+    TotalRows = Cells(Rows.Count, 1).End(xlUp).Row
+    
+    Range("i1").Value = ("Ticker")
+    Range("j1").Value = ("Yearly Change")
+    Range("k1").Value = ("Percent Change")
+    Range("L1").Value = ("Total Stock Volume")
+    
+    'Begin Loop
+    For r = 2 To TotalRows
+        If Cells(r, 1) <> Cells(r + 1, 1) Then
+        
+            ' Add to total volume one last time
+            ' Grab close price and store it
+            ' get yearly change by close - open
+            ' get yearly %
+            
+            ' SUMMARY SECTION
+            ' write the four columns in summary section using counter (summary row)
+            ' col I
+            ' col J
+            ' col K
+            ' col L
+            
+            ' DO CONDITIONAL COLORING ON COL J
+            ' If statement checking greater than 0
+                ' color green for that current counter (summary row)
+            ' else
+                ' color red
+            ' end if
+            
+            
+            
+        
+        
+        
+            Cells(counter, 9).Value = Cells(r, 1)
+        
+            Lastclose = Cells(r, 6)
+            Cells(counter, 10).Value = Lastclose - FirstOpen
+            FirstOpen = Cells(r, 3)
+            Cells(counter, 11).Value = (Lastclose - FirstOpen) / FirstOpen * 100
+            
+            
+        
+            counter = counter + 1
+            
+        'When current row symbol equals to the current row + 1 symbol ("A" = "A")
+        Else
+            TotalVolume = TotalVolume + Cells(r, 7).Value
+            
+            Cells(counter, 12).Value = TotalVolume + Cells(r + 1, 7).Value
+            
+        
+        End If
+        
+        If Cells(r, 10).Value >= 0 Then
+        Cells(r, 10).Interior.ColorIndex = 4
+        
+        Else
+        Cells(r, 10).Interior.ColorIndex = 3
+        
+        End If
+        
+        
+    
+    Next r
+    
+    
+End Sub
